@@ -19,24 +19,21 @@
 
 import kodi
 from url_dispatcher import URL_Dispatcher
+from enum import Enum
 
 
-def __enum(**enums):
-    return type('Enum', (), enums)
+class Modes(Enum):
+    MAIN = 'main'
+    PLAY = 'play'
+    OPEN = 'open'
+
+
+class Directories(Enum):
+    DATA = kodi.translate_path(f'special://profile/addon_data/{kodi.get_id()}/')
+
+
+class Icons(Enum):
+    ADDON = kodi.translate_path(f'special://home/addons/{kodi.get_id()}/icon.png')
 
 
 DISPATCHER = URL_Dispatcher()
-
-MODES = __enum(
-    MAIN='main',
-    PLAY='play',
-    OPEN='open'
-)
-
-DIRECTORIES = __enum(
-    DATA=kodi.translate_path('special://profile/addon_data/%s/' % kodi.get_id())
-)
-
-ICONS = __enum(
-    ADDON=kodi.translate_path('special://home/addons/{0!s}/icon.png'.format(kodi.get_id()))
-)

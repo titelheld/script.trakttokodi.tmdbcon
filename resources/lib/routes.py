@@ -22,7 +22,7 @@ import log_utils
 from constants import DISPATCHER, MODES
 
 i18n = kodi.i18n
-addon_id = 'plugin.video.embycon'
+addon_id = 'plugin.video.themoviedb.helper'
 
 
 @DISPATCHER.register(MODES.MAIN, kwargs=['content_type'])
@@ -35,15 +35,13 @@ def play_route(video_type, title, year, trakt_id=None, episode_id=None, season_i
     plugin_url = None
 
     if video_type == 'episode':
-        plugin_url = 'plugin://{addon_id}/?mode=TRAKTTOKODI&action=play&video_type={video_type}&season={season}&episode={episode}&imdb_id={imdb_id}&year={year}&title={title}' \
-            .format(addon_id=addon_id, video_type=video_type, season=season, episode=episode, imdb_id=imdb_id, year=year, title=title)
+        plugin_url = f'plugin://{addon_id}/?mode=TRAKTTOKODI&action=play&video_type={video_type}&season={season}&episode={episode}&imdb_id={imdb_id}&year={year}&title={title}'
 
     elif video_type == 'movie':
-        plugin_url = 'plugin://{addon_id}/?mode=TRAKTTOKODI&action=play&video_type={video_type}&imdb_id={imdb_id}&year={year}&title={title}' \
-            .format(addon_id=addon_id, video_type=video_type, imdb_id=imdb_id, year=year, title=title)
+        plugin_url = f'plugin://{addon_id}/?mode=TRAKTTOKODI&action=play&video_type={video_type}&imdb_id={imdb_id}&year={year}&title={title}'
 
     if plugin_url:
-        kodi.execute_builtin('ActivateWindow(Videos,{plugin_url})'.format(plugin_url=plugin_url))
+        kodi.execute_builtin(f'ActivateWindow(Videos,{plugin_url})')
 
 
 @DISPATCHER.register(MODES.OPEN, args=['video_type', 'title', 'year'], kwargs=['trakt_id', 'episode_id', 'season_id', 'season', 'episode', 'ep_title', 'imdb_id', 'tmdb_id', 'tvdb_id'])
@@ -57,12 +55,10 @@ def open_route(video_type, title, year, trakt_id=None, episode_id=None, season_i
         play_route(video_type, title, year, trakt_id, episode_id, season_id, imdb_id, tmdb_id, tvdb_id, season, episode, ep_title)
 
     elif video_type == 'season':
-        plugin_url = 'plugin://{addon_id}/?mode=TRAKTTOKODI&action=open&video_type={video_type}&season={season}&imdb_id={imdb_id}&year={year}&title={title}' \
-            .format(addon_id=addon_id, video_type=video_type, season=season, imdb_id=imdb_id, year=year, title=title)
+        plugin_url = f'plugin://{addon_id}/?mode=TRAKTTOKODI&action=open&video_type={video_type}&season={season}&imdb_id={imdb_id}&year={year}&title={title}'
 
     elif video_type == 'show':
-        plugin_url = 'plugin://{addon_id}/?mode=TRAKTTOKODI&action=open&video_type={video_type}&imdb_id={imdb_id}&year={year}&title={title}' \
-            .format(addon_id=addon_id, video_type=video_type, imdb_id=imdb_id, year=year, title=title)
+        plugin_url = f'plugin://{addon_id}/?mode=TRAKTTOKODI&action=open&video_type={video_type}&imdb_id={imdb_id}&year={year}&title={title}'
 
     if plugin_url:
-        kodi.execute_builtin('RunPlugin({plugin_url})'.format(plugin_url=plugin_url))
+        kodi.execute_builtin(f'RunPlugin({plugin_url})')

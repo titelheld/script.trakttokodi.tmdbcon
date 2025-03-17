@@ -19,31 +19,29 @@
 
 import time
 import kodi
-from xbmc import LOGDEBUG, LOGERROR, LOGFATAL, LOGINFO, LOGNONE, LOGNOTICE, LOGSEVERE, LOGWARNING
+from xbmc import LOGDEBUG, LOGERROR, LOGFATAL, LOGINFO, LOGNONE, LOGNOTICE, LOGSEVERE, LOGWARNING # type: ignore
 
 name = kodi.get_name()
 
 
 def log(msg, level=LOGDEBUG):
     try:
-        if isinstance(msg, unicode):
-            msg = '%s (ENCODED)' % msg.encode('utf-8')
-        kodi.__log('%s: %s' % (name, msg), level)
+        if isinstance(msg, str):
+            msg = f'{msg} (ENCODED)'.encode('utf-8')
+        kodi.__log(f'{name}: {msg}', level)
     except Exception as e:
         try:
-            kodi.__log('Logging Failure: %s' % (e), level)
-        except:
+            kodi.__log(f'Logging Failure: {e}', level)
+        except Exception:
             pass
 
 
 def trace(method):
-    #  @trace decorator
     def method_trace_on(*args, **kwargs):
         start = time.time()
         result = method(*args, **kwargs)
         end = time.time()
-        log('{name!r} time: {time:2.4f}s args: |{args!r}| kwargs: |{kwargs!r}|'
-            .format(name=method.__name__,time=end - start, args=args, kwargs=kwargs), LOGDEBUG)
+        log(f'{method.__name__!r} time: {end - start:2.4f}s args: |{args!r}| kwargs: |{kwargs!r}|', LOGDEBUG)
         return result
 
     def method_trace_off(*args, **kwargs):
