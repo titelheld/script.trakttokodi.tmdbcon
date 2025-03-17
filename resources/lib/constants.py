@@ -26,6 +26,8 @@ class Modes(Enum):
     MAIN = 'main'
     PLAY = 'play'
     OPEN = 'open'
+    TMDB_HELPER_PLAY = 'tmdb_helper_play'
+    TMDB_HELPER_BROWSE = 'tmdb_helper_browse'
 
 
 class Directories(Enum):
