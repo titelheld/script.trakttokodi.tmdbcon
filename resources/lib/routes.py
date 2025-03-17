@@ -62,3 +62,15 @@ def open_route(video_type, title, year, trakt_id=None, episode_id=None, season_i
 
     if plugin_url:
         kodi.execute_builtin(f'RunPlugin({plugin_url})')
+
+
+@DISPATCHER.register(MODES.TMDB_HELPER_PLAY, args=['video_type', 'title', 'year'], kwargs=['imdb_id', 'tmdb_id', 'tvdb_id'])
+def tmdb_helper_play_route(video_type, title, year, imdb_id=None, tmdb_id=None, tvdb_id=None):
+    plugin_url = f'plugin://plugin.video.themoviedb.helper/?action=play&video_type={video_type}&imdb_id={imdb_id}&tmdb_id={tmdb_id}&tvdb_id={tvdb_id}&title={title}&year={year}'
+    kodi.execute_builtin(f'RunPlugin({plugin_url})')
+
+
+@DISPATCHER.register(MODES.TMDB_HELPER_BROWSE, args=['video_type', 'title', 'year'], kwargs=['imdb_id', 'tmdb_id', 'tvdb_id'])
+def tmdb_helper_browse_route(video_type, title, year, imdb_id=None, tmdb_id=None, tvdb_id=None):
+    plugin_url = f'plugin://plugin.video.themoviedb.helper/?action=browse&video_type={video_type}&imdb_id={imdb_id}&tmdb_id={tmdb_id}&tvdb_id={tvdb_id}&title={title}&year={year}'
+    kodi.execute_builtin(f'RunPlugin({plugin_url})')
