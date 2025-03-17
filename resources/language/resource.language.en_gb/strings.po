@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Addon Name: TraktToKodi EmbyCon Connector
-# Addon id: script.trakttokodi.embycon
+# Addon id: script.trakttokodi.tmdbcon
 # Addon Provider: anxdpanic
 msgid ""
 msgstr ""
